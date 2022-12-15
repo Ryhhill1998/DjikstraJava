@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.PriorityQueue;
+import java.util.Stack;
 
 public class Graph {
 
@@ -17,35 +18,49 @@ public class Graph {
     }
 
     public void addConnection(char letter1, char letter2, int cost) {
-        Node node1 = findNode(letter1);
-        Node node2 = findNode(letter2);
+        Node node1 = getNode(letter1);
+        Node node2 = getNode(letter2);
+
+        if (node1 == null || node2 == null) {
+            return;
+        }
 
         int row = convertLetterToIndex(letter1);
         int col = convertLetterToIndex(letter2);
         adjacencyMatrix[row][col] = cost;
     }
 
-    private Node findNode(char letter) {
-        Node foundNode = null;
+    private int findNode(char letter) {
+        int foundIndex = -1;
 
         for (int i = 0; i < nodeList.size(); i++) {
             Node n = nodeList.get(i);
 
             if (n.getLetter() == letter) {
-                foundNode = n;
+                foundIndex = i;
                 break;
             }
         }
 
-        return foundNode;
+        return foundIndex;
+    }
+
+    private Node getNode(char letter) {
+        int nodeIndex = findNode(letter);
+
+        if (nodeIndex == -1) {
+            return null;
+        }
+
+        return nodeList.get(nodeIndex);
     }
 
     private int convertLetterToIndex(char letter) {
-        return letter - 'A';
+        return findNode(letter);
     }
 
     private char convertIndexToLetter(int index) {
-        return (char) (index + 'A');
+        return nodeList.get(index).getLetter();
     }
 
     private void printColumnLetters() {
@@ -71,8 +86,16 @@ public class Graph {
     }
 
     public void getShortestPath(char startLetter) {
+        getShortestPath(startLetter, null);
+        printNodeList();
+    }
+
+    public void getShortestPath(char startLetter, Character endLetter) {
         PriorityQueue<Node> nodes = new PriorityQueue<>();
-        Node startNode = findNode(startLetter);
+        Node startNode = getNode(startLetter);
+        if (startNode == null) {
+            return;
+        }
         startNode.setTotalCost(0);
         nodes.offer(startNode);
 
@@ -87,8 +110,11 @@ public class Graph {
                     continue;
                 }
 
-                char currentLetter = convertIndexToLetter(i);
-                Node currentNode = findNode(currentLetter);
+                Node currentNode = getNode(convertIndexToLetter(i));
+
+                if (currentNode == null) {
+                    return;
+                }
 
                 if (currentNode.isVisited()) {
                     continue;
@@ -110,11 +136,47 @@ public class Graph {
         }
 
         printNodeList();
+        System.out.println();
+
+        if (endLetter == null) {
+            return;
+        }
+
+        System.out.println("The shortest path from " + startLetter + " to " + endLetter + " is show below:");
+        printShortestPath(endLetter);
     }
 
     public void printNodeList() {
         for (Node n : nodeList) {
             System.out.println(n);
         }
+    }
+
+    public void printShortestPath(char endLetter) {
+        Stack<Node> shortestPath = new Stack<>();
+        Node currentNode = getNode(endLetter);
+
+        if (currentNode == null) {
+            return;
+        }
+
+        int shortestDistance = currentNode.getTotalCost();
+
+        while (currentNode != null && currentNode.getPreviousLetter() != null) {
+            shortestPath.push(currentNode);
+            currentNode = getNode(currentNode.getPreviousLetter());
+        }
+
+        shortestPath.push(currentNode);
+
+        while (!shortestPath.empty()) {
+            Node node = shortestPath.pop();
+            System.out.print(node.getLetter());
+            if (!shortestPath.empty()) {
+                System.out.print(" --> ");
+            }
+        }
+
+        System.out.println("\nTotal cost = " + shortestDistance);
     }
 }

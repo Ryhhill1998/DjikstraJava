@@ -17,7 +17,7 @@ public class Node implements Comparable<Node> {
         return letter;
     }
 
-    public char getPreviousLetter() {
+    public Character getPreviousLetter() {
         return previousLetter;
     }
 
