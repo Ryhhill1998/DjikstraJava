@@ -36,43 +36,64 @@ public class Main {
 //        graph.addConnection('E', 'D', 3);
 //        graph.addConnection('E', 'C', 1);
 
+//        Graph graph = new Graph(8);
+//
+//        graph.addNode('H');
+//        graph.addNode('A');
+//        graph.addNode('B');
+//        graph.addNode('C');
+//        graph.addNode('D');
+//        graph.addNode('E');
+//        graph.addNode('F');
+//        graph.addNode('S');
+//
+//        graph.addConnection('H', 'A', 3);
+//        graph.addConnection('H', 'B', 2);
+//        graph.addConnection('H', 'C', 5);
+//        graph.addConnection('A', 'H', 3);
+//        graph.addConnection('A', 'D', 3);
+//        graph.addConnection('B', 'H', 2);
+//        graph.addConnection('B', 'D', 1);
+//        graph.addConnection('B', 'E', 6);
+//        graph.addConnection('C', 'H', 2);
+//        graph.addConnection('C', 'E', 2);
+//        graph.addConnection('D', 'A', 3);
+//        graph.addConnection('D', 'B', 1);
+//        graph.addConnection('D', 'F', 4);
+//        graph.addConnection('E', 'C', 2);
+//        graph.addConnection('E', 'B', 6);
+//        graph.addConnection('E', 'F', 1);
+//        graph.addConnection('E', 'S', 4);
+//        graph.addConnection('F', 'D', 4);
+//        graph.addConnection('F', 'E', 1);
+//        graph.addConnection('F', 'S', 2);
+//        graph.addConnection('S', 'E', 4);
+//        graph.addConnection('S', 'F', 2);
+
         Graph graph = new Graph(8);
 
-        graph.addNode('H');
+        graph.addNode('S');
         graph.addNode('A');
         graph.addNode('B');
         graph.addNode('C');
         graph.addNode('D');
         graph.addNode('E');
         graph.addNode('F');
-        graph.addNode('S');
 
-        graph.addConnection('H', 'A', 3);
-        graph.addConnection('H', 'B', 2);
-        graph.addConnection('H', 'C', 5);
-        graph.addConnection('A', 'H', 3);
-        graph.addConnection('A', 'D', 3);
-        graph.addConnection('B', 'H', 2);
-        graph.addConnection('B', 'D', 1);
-        graph.addConnection('B', 'E', 6);
-        graph.addConnection('C', 'H', 2);
-        graph.addConnection('C', 'E', 2);
-        graph.addConnection('D', 'A', 3);
-        graph.addConnection('D', 'B', 1);
-        graph.addConnection('D', 'F', 4);
-        graph.addConnection('E', 'C', 2);
-        graph.addConnection('E', 'B', 6);
-        graph.addConnection('E', 'F', 1);
-        graph.addConnection('E', 'S', 4);
-        graph.addConnection('F', 'D', 4);
-        graph.addConnection('F', 'E', 1);
-        graph.addConnection('F', 'S', 2);
-        graph.addConnection('S', 'E', 4);
-        graph.addConnection('S', 'F', 2);
+        graph.addConnection('S', 'A', 3);
+        graph.addConnection('S', 'C', 2);
+        graph.addConnection('S', 'F', 6);
+        graph.addConnection('A', 'B', 6);
+        graph.addConnection('A', 'D', 1);
+        graph.addConnection('B', 'E', 1);
+        graph.addConnection('C', 'A', 2);
+        graph.addConnection('C', 'D', 3);
+        graph.addConnection('D', 'E', 4);
+        graph.addConnection('F', 'E', 2);
 
         graph.printGraph();
         System.out.println();
 
-        graph.getShortestPath('H', 'S');
+        graph.getShortestPath('S');
     }
 }
