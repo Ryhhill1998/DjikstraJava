@@ -135,7 +135,6 @@ public class Graph {
             nodeBeingExpanded.setVisited(true);
         }
 
-        printNodeList();
         System.out.println();
 
         if (endLetter == null) {
